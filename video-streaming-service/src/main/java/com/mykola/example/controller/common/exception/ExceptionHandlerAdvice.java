@@ -1,7 +1,6 @@
 package com.mykola.example.controller.common.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,24 +16,23 @@ public class ExceptionHandlerAdvice {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(VideoNotFoundException.class)
-    public ResponseEntity<CustomError> handleVideoIsDeleteException(VideoNotFoundException ex, ServletWebRequest request) {
+    public CustomError handleVideoIsDeleteException(VideoNotFoundException ex, ServletWebRequest request) {
         log.warn("VideoNotFoundException  exception occurred!");
-        return ResponseEntity.status(404)
-                .body(CustomError.builder()
-                        .status(404)
+        return CustomError.builder()
+                        .status(HttpStatus.NOT_FOUND.value())
                         .operation(request.getHttpMethod().name())
                         .message(ex.getMessage())
-                        .build());
+                        .build();
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(StorageServiceClientException.class)
-    public ResponseEntity<CustomError> handleEmptyVideoContentException(StorageServiceClientException ex, ServletWebRequest request) {
+    public CustomError handleEmptyVideoContentException(StorageServiceClientException ex, ServletWebRequest request) {
         log.warn("StorageServiceClientException exception occurred!");
-        return ResponseEntity.status(500)
-                .body(CustomError.builder()
+        return CustomError.builder()
                         .status(500)
                         .operation(request.getHttpMethod().name())
                         .message(ex.getMessage())
-                        .build());
+                        .build();
     }
 }

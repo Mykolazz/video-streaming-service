@@ -10,6 +10,14 @@ so I add it to simulate such storage calls.
 
 I will be happy to answer any remaining questions during the conversation)
 
+## Local Url
+
+http://localhost:8763
+
+## Local swagger Url
+
+http://localhost:8763/swagger-ui/index.html#/
+
 ## Environment variables
 
 [//]: # (todo) 
@@ -25,14 +33,6 @@ Just run with default profile
 
 [//]: # (todo)
 tbd: add profiles (local, it, etc.)
-
-## Local Url
-
-http://localhost:8763
-
-## Local swagger Url
-
-http://localhost:8763/swagger-ui/index.html#/
 
 ## Local db setup:
 

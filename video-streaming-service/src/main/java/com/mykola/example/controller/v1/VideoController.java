@@ -5,6 +5,7 @@ import static java.lang.Boolean.TRUE;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,16 +51,16 @@ public class VideoController implements VideoApi {
      * Publishes a new video with the given file and associated user ID.
      *
      * @param userId The ID of the user performing the publishing action.
-     * @param file The uploaded video file.
+     * @param multipartFile The uploaded video file.
      * @return A response DTO containing the publishing response with video ID and size.
      */
     @Override
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDTO<PublishResponseDto> publish(@RequestHeader(USER_ID_HEADER) @NotBlank String userId,
-                                                   @RequestPart("file") @ValidImportFile MultipartFile file) {
+                                                   @RequestPart("file") @ValidImportFile MultipartFile multipartFile) {
         log.info("Start request to publish new video");
-        return new ResponseDTO<>(videoService.publish(file, userId));
+        return new ResponseDTO<>(videoService.publish(multipartFile, userId));
     }
 
     /**

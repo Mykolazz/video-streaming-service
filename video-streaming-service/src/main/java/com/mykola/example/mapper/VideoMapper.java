@@ -15,6 +15,8 @@ import com.mykola.example.entity.Video;
 
 @Mapper(componentModel = "spring")
 public interface VideoMapper {
+
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "contentExternalId", source = "clientSaveResponseDto.id")
     Video toEntity(ClientSaveResponseDto clientSaveResponseDto, String userId);
 

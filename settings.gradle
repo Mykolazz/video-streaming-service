@@ -1,0 +1,4 @@
+rootProject.name = 'video-streaming-service'
+include 'video-streaming-service'
+include 'video-streaming-service-IT'
+

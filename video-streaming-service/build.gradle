@@ -1,0 +1,64 @@
+plugins {
+    id "java"
+    alias(libs.plugins.org.springframework.boot)
+    alias(libs.plugins.io.spring.dependency.management)
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+springBoot {
+    buildInfo()
+}
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //General
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+
+    implementation "jakarta.validation:jakarta.validation-api:${libs.versions.jakartaValidationApiVersion.get()}"
+    implementation 'commons-io:commons-io:2.18.0'
+
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    implementation 'com.h2database:h2:2.2.224'
+    testImplementation 'com.h2database:h2:2.2.224'
+
+    //Swagger
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${libs.versions.swaggerVersion.get()}"
+
+    //Lombok
+    implementation "org.projectlombok:lombok:${libs.versions.lombokVersion.get()}"
+    annotationProcessor "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+
+    //Mapstruct
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${libs.versions.mapstructVersion.get()}"
+    implementation "org.projectlombok:lombok-mapstruct-binding:${libs.versions.mapstructBindingVersion.get()}"
+    implementation "org.mapstruct:mapstruct:${libs.versions.mapstructVersion.get()}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${libs.versions.mapstructVersion.get()}"
+
+    //Test
+    testImplementation "org.junit.jupiter:junit-jupiter:${libs.versions.jupiterVersion.get()}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.security:spring-security-test"
+    testImplementation "org.springframework.security:spring-security-core"
+    testImplementation "org.mockito:mockito-core:${libs.versions.mockitoVersion.get()}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${libs.versions.jupiterVersion.get()}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${libs.versions.mockitoVersion.get()}"
+}
+
+test {
+    useJUnitPlatform()
+}
